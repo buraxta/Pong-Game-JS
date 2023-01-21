@@ -1,3 +1,6 @@
+body{
+    background-image: url(./img/bg.jpg);
+}
 #gameContainer{
     text-align: center;
 }
@@ -7,6 +10,8 @@
 #scoreText{
     font-family: "consolas", monospace;
     font-size: 100px;
+    color: rgb(0, 0, 0);
+    text-shadow: 3px 3px 10px white 
 }
 #resetBtn{
     font-family: "Permanent Marker", cursive;
