@@ -67,3 +67,62 @@ function drawPaddles(){
     ctx.strokeRect = (paddle2.x, paddle2.y, paddle2.height, paddle2.width);
 
 };
+
+function createBall(){
+    ballSpeed = 1;
+    if (Math.round(Math.random()) == 1) {
+        ballXDirection = 1;
+    }
+    else{
+        ballXDirection = -1;
+    }
+    if(Math.round(Math.random()) == 1){
+        ballYDirection = Math.random() * 1; // more random direction
+    }
+    else{
+        ballYDirection = Math.random() * -1; // more random direction
+    }
+    ballX = gameWidth / 2;
+    ballY = gameHeight / 2;
+    drawBall(ballX, ballY);
+}
+function moveBall(){
+    ballX += (ballSpeed * ballXDirection);
+    ballY += (ballSpeed * ballYDirection);
+}
+function drawBall(){
+    ctx.fillStyle = ballColor;
+    ctx.strokeStyle = ballBorderColor;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, ballRadius, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
+};
+function checkCollision(){
+    if (ballY <= 0 + ballRadius) {
+        ballYDirection *= -1;
+    }
+    if (ballY >= gameHeight - ballRadius) {
+        ballYDirection *= -1;
+    }
+    if (ballX <= 0) {
+        player2Score += 1;
+        updateScore();
+        createBall();
+        return;
+    }
+    }
+    if (ballX >= gameWidth) {
+        player1Score += 1;
+        updateScore();
+        createBall();
+        return;
+    }
+    if (ballX <= (paddle1.x + paddle1.width + ballRadius)) {
+        if (ballY > paddle1.y && ballY < paddle1.y + paddle1.height) {
+            ballX = (paddle1.x + paddle1.width) + ballRadius; // if ball gets stuck
+            ballXDirection *= -1;
+            ballSpeed += 1;
+        }
+    }
